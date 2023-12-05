@@ -25,10 +25,8 @@ def convert_backwards(conversions, seed):
 
 
 line_counter = 2
-key = 'seed'
 for i in range(7):
     conversions = []
-    key = lines[line_counter].strip().replace(f'{key}-to-', '').replace(' map:', '')
     line_counter += 1
     while lines[line_counter] != '\n':
         values = [int(i) for i in lines[line_counter].strip().split(' ')]
