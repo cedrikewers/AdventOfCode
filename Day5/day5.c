@@ -34,7 +34,7 @@ long do_the_hard_part(long source[], long dest[], long range_size[], int arr_siz
         int thread_no = omp_get_thread_num();
         int from = (MAX_VALUE/THREAD_COUNT) * thread_no;
         int to = (MAX_VALUE/THREAD_COUNT) * (thread_no + 1);
-        printf("Thread %d is looking betweeen %i and %i\n", thread_no, from, to);
+        //printf("Thread %d is looking betweeen %i and %i\n", thread_no, from, to);
         for(int i = from; i < to; i++){
             
             long seed = i;
@@ -49,7 +49,7 @@ long do_the_hard_part(long source[], long dest[], long range_size[], int arr_siz
 
             for(int j = 0; j < seed_ranges_len; j += 2){
                 if(seed >= seed_ranges[j] && seed < seed_ranges[j+1]){
-                    printf("Thread %d found a seed in range %ld - %ld. Its location is %d\n", thread_no, seed_ranges[j], seed_ranges[j+1], i);
+                    //printf("Thread %d found a seed in range %ld - %ld. Its location is %d\n", thread_no, seed_ranges[j], seed_ranges[j+1], i);
 
                     #pragma omp critical
                     {
@@ -62,7 +62,7 @@ long do_the_hard_part(long source[], long dest[], long range_size[], int arr_siz
             }
             if(done) break;
         }
-        if(!done) printf("Thread %d did not find a seed in range\n", thread_no);
+        //if(!done) printf("Thread %d did not find a seed in range\n", thread_no);
     }
 
     return global_minimum;
