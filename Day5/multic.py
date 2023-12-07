@@ -2,6 +2,8 @@ import ctypes
 import os
 import numpy as np
 
+os.system('gcc -shared -fopenmp -o day5.so -fPIC day5.c')
+
 cwd = os.getcwd()
 lib = ctypes.CDLL(cwd + '/day5.so')
 

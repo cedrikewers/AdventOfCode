@@ -2,6 +2,8 @@ from functools import reduce
 import ctypes
 import os
 
+os.system('gcc -shared -fopenmp -o day6.so -fPIC day6.c')
+
 cwd = os.getcwd()
 lib = ctypes.CDLL(cwd + '/day6.so')
 
