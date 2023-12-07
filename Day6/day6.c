@@ -6,7 +6,7 @@
  
 long do_the_hard_part(long time, long record){
 
-    printf("Time: %ld, Record: %ld\n", time, record);
+    //printf("Time: %ld, Record: %ld\n", time, record);
 
     long out = 0;
 
