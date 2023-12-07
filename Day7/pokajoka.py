@@ -33,7 +33,7 @@ combinations = {
 
 def get_hand_type(hand: list | np.ndarray) -> int:
     hand = np.array(hand)
-    unique, counts = np.unique(hand, return_counts=True)
+    _, counts = np.unique(hand, return_counts=True)
     
     if counts.max() == 5:
         return 7
@@ -45,7 +45,7 @@ def get_hand_type(hand: list | np.ndarray) -> int:
         return 5
     elif counts.max() == 3:
         return 4
-    elif sorted_counts[0:3] == [2, 2, 1]:
+    elif sorted_counts[0:2] == [2, 2]:
         return 3
     elif counts.max() == 2:
         return 2
@@ -56,28 +56,27 @@ def compare_hands(hand1: tuple[list, int], hand2: tuple[list, int]) -> int:
     best_hand1_type = get_hand_type(hand1[0])
     if 1 in hand1[0]:
         hand = np.array(hand1[0])    
-        js = np.where(hand == 1)[0]
-        no_of_js = js.shape[0]
+        j_pos= np.where(hand == 1)[0]
+        no_of_js = j_pos.shape[0]
         
         for combination in combinations[no_of_js]:
             new_hand = hand.copy()
-            for i, rep_val in zip(js, combination):
+            for i, rep_val in zip(j_pos, combination):
                 new_hand[i] = rep_val
             
             new_hand_type = get_hand_type(new_hand)
             if new_hand_type > best_hand1_type:
                 best_hand1_type = new_hand_type
-                best_hand1 = new_hand
     
     best_hand2_type = get_hand_type(hand2[0])
     if 1 in hand2[0]:
         hand = np.array(hand2[0])    
-        js = np.where(hand == 1)[0]
-        no_of_js = js.shape[0]
+        j_pos = np.where(hand == 1)[0]
+        no_of_js = j_pos.shape[0]
         
         for combination in combinations[no_of_js]:
             new_hand = hand.copy()
-            for i, rep_val in zip(js, combination):
+            for i, rep_val in zip(j_pos, combination):
                 new_hand[i] = rep_val
             
             new_hand_type = get_hand_type(new_hand)
@@ -108,7 +107,7 @@ for line in lines:
     value = int(values[1])
     hand_biddings.append((hand, value))
 
-sorted_hands = sorted(hand_biddings, key=cmp_to_key(compare_hands), reverse=False)
+sorted_hands = sorted(hand_biddings, key=cmp_to_key(compare_hands))
 
 out_val = 0
 
@@ -116,4 +115,3 @@ for i, hand in enumerate(sorted_hands):
     out_val += (i + 1) * hand[1]
     
 print(out_val)
-    
