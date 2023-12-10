@@ -1,5 +1,5 @@
 .vscode
 *.so
 .venv
-input.txt
+*/input.txt
 inputs
