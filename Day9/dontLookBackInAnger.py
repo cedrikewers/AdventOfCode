@@ -9,8 +9,7 @@ def simplify(nums: list[int]) -> list[list[int]]:
 
 def extrapolate_backwards(nums: list[list[int]]) -> int:
     for l, r in zip(nums[::-1], nums[::-1][1:]):
-        r.insert(0, r[0] - l[0])
-        
+        r.insert(0, r[0] - l[0])    
     
     return nums[0][0]
 
