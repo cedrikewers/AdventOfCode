@@ -4,9 +4,6 @@ import dataclasses
 import sys
 from itertools import product
 
-# For flood algorithm
-sys.setrecursionlimit(100000)
-
 CONNECTING_TILES = {
     'NORTH': ['|', '7', 'F'],
     'EAST': ['-', '7', 'J'],
@@ -181,13 +178,18 @@ pipe = {'x': [], 'y': []}
 grid = np.zeros((SHAPE[1] * 3, SHAPE[0] * 3))
 
 def flood(x: int, y: int):
-    for _, x_offset, y_offset in (Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST):
-        try:
-            if(grid[y + y_offset, x + x_offset] == 0):
-                grid[y + y_offset, x + x_offset] = 1
-                flood(x + x_offset, y + y_offset)
-        except IndexError:
-            continue
+    new_idx = [(x, y)]
+    while len(new_idx) > 0:
+        new_new_idx = []
+        for x, y in new_idx:
+            for _, x_offset, y_offset in (Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST):
+                try:
+                    if(grid[y + y_offset, x + x_offset] == 0):
+                        grid[y + y_offset, x + x_offset] = 1
+                        new_new_idx.append((x + x_offset, y + y_offset))
+                except IndexError:
+                    continue
+        new_idx = new_new_idx
 
 for x, y in output:
     pos = get_xys_from_char(input[y, x])
