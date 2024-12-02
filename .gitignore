@@ -3,3 +3,4 @@
 .venv
 **/input.txt
 inputs
+2024/Day1/SQLite/day1.db
